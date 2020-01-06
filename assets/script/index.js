@@ -1,6 +1,6 @@
 var apiKey = "32e1c02add4067945d7c6604f73cc6cd"
 
-var queryURL="api.openweathermap.org/data/2.5/weather?q="
+var queryURLBase="api.openweathermap.org/data/2.5/weather?q="
 
 var searchCity = [];
 
@@ -181,6 +181,17 @@ $(document).ready(function() {
     $("#searchBtn").on("click", function(e){
         e.preventDefault()
         var city = $("#search-city").val().trim()
-        
-    })
-})
+
+        searchCity.unshift(city);
+        console.log(searchCity)
+
+        var newUrl = queryURLBase + city + "&units=imperial" + apiKey;
+        var dayCount = "&cnt=40"
+
+        var queryURLForecast = "https://openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + dayCount + apiKey
+
+        currentWeather(newUrl);
+
+        futureWeather(queryURLForecast)
+    });
+});
