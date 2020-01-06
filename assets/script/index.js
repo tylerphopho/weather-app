@@ -172,7 +172,7 @@ $(document).ready(function() {
             forecastHumid.html(`Humidity: ${data.list[i].main.humidity} % `);
             forecastTemp.append(forecastHumid);
 
-
+            // Creates img tag to display weather icon
             var forecastIcon = $(`<img src="https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png" alt="icon">`);
             forecastTemp.append(forecastIcon)
         }
