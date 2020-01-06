@@ -1,6 +1,6 @@
-var apiKey = "32e1c02add4067945d7c6604f73cc6cd"
+var apiKey = "&appid=4d2d94c87e7f12016ab14bda230797be"
 
-var queryURLBase="api.openweathermap.org/data/2.5/weather?q="
+var queryURLBase="http://api.openweathermap.org/data/2.5/weather?q="
 
 var searchCity = [];
 
@@ -25,6 +25,7 @@ $(document).ready(function() {
             cities = JSON.parse(cities);
             searchedCities = cities
             if(cities.cities.length > 0) {
+                
                 renderWeather(cities.cities[0], true)
                 cities.cities.forEach(function(index) {
                     renderCitiesList(index)
@@ -188,7 +189,7 @@ $(document).ready(function() {
         var newUrl = queryURLBase + city + "&units=imperial" + apiKey;
         var dayCount = "&cnt=40"
 
-        var queryURLForecast = "https://openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + dayCount + apiKey
+        var queryURLForecast = "api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial" + dayCount + apiKey
 
         currentWeather(newUrl);
 
