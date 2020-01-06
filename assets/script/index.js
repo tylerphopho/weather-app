@@ -177,4 +177,10 @@ $(document).ready(function() {
             forecastTemp.append(forecastIcon)
         }
     }
+
+    $("#searchBtn").on("click", function(e){
+        e.preventDefault()
+        var city = $("#search-city").val().trim()
+        
+    })
 })
