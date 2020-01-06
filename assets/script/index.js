@@ -9,7 +9,7 @@ var searchCities = {
 };
 
 var searchForecasts = {
-    forcasts: []
+    forecasts: []
 }
 
 $(document).ready(function() {
@@ -132,5 +132,49 @@ $(document).ready(function() {
         listSection.prepend(listItems);
     }
 
-    
+    // AJAX to display 5 day forecaset
+    function futureWeather(queryURLForecast) {
+        $.ajax({
+            url: queryURLForecast,
+            method: "GET"
+        }).then(function(data) {
+            console.log(data)
+            searchedForecasts.forecasts.push(data)
+            sessionStorage.setItem("lastForecast", JSON.stringify(searchedForecasts));
+            renderForecast(data)
+        });
+    }
+
+    function renderForecast(data) {
+        // Empties current cards 
+        $(".card-deck").empty()
+
+        // Loops 5 Day Forecast
+        for(var i = 0; i < data.list.length; i += 8) {
+            console.log(data.list[i].main.temp)
+
+            var card = $("<div>");
+            card.addClass("card");
+            $(".card-deck").append(card)
+            var cardBody = $("<div>");
+            cardBody.addClass("card-body");
+            card.append(cardBody);
+
+            var forecastDate = $("<p>")
+            forecastDate.html(`${moment(data.list[i].dt_txt.format("L"))}`)
+            cardBody.append(forecastDate)
+
+            var forecastTemp = $("<p>");
+            forecastTemp.html(`Temp: ${data.list[i].main.temp} &#176;F`)
+            forecastDate.append(forecastTemp)
+
+            var forecastHumid = $("<p>");
+            forecastHumid.html(`Humidity: ${data.list[i].main.humidity} % `);
+            forecastTemp.append(forecastHumid);
+
+
+            var forecastIcon = $(`<img src="https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png" alt="icon">`);
+            forecastTemp.append(forecastIcon)
+        }
+    }
 })
